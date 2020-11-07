@@ -1,5 +1,5 @@
 import pygame
-from game.configuration import *
+from game.config import *
 from game.map import WORLD_MAP, WORLD_WIDTH, WORLD_HEIGHT
 from numba import njit
 
@@ -46,7 +46,7 @@ def ray_casting(player_pos, player_angle, world_map):
         offset = int(offset) % TILE
         depth *= math.cos(player_angle - current_angle)
         depth = max(depth, 0.00001)
-        projection_height = int(PROJ_COEFF / depth)
+        projection_height = int(PROJECTION_COEFFICIENT / depth)
 
         # wall casting
         casted_walls.append((depth, offset, projection_height, texture))
@@ -57,7 +57,7 @@ def ray_casting(player_pos, player_angle, world_map):
 
 def ray_casting_walls(player, textures):
     walls = []
-    casted_walls = ray_casting(player.pos, player.angle, WORLD_MAP)
+    casted_walls = ray_casting(player.position, player.angle, WORLD_MAP)
     wall_shot = casted_walls[CENTER_RAY][0], casted_walls[CENTER_RAY][2]
     
     for ray, casted_values in enumerate(casted_walls):
