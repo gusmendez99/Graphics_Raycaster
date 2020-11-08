@@ -30,7 +30,7 @@ class Sprite:
 
         self.dead_animation_count = 0
         self.animation_count = 0
-        self.npc_action_trigger = False
+        self.enemy_action_trigger = False
         self.door_open_trigger = False
         self.door_prev_position = self.y if self.flag == 'door_h' else self.x
         self.delete = False
@@ -80,7 +80,7 @@ class Sprite:
             half_sprite_height = sprite_height // 2
             shift = half_sprite_height * self.shift
 
-            # logic for doors, npc, decors
+            # logic for doors, enemy, decors
             if self.flag == 'door_h' or self.flag == 'door_v':
                 if self.door_open_trigger:
                     self.door_open()
@@ -91,8 +91,8 @@ class Sprite:
                     sprite_object = self.dead_animation()
                     shift = half_sprite_height * self.dead_shift
                     sprite_height = int(sprite_height / 1.3)
-                elif self.npc_action_trigger:
-                    sprite_object = self.npc_in_action()
+                elif self.enemy_action_trigger:
+                    sprite_object = self.enemy_in_action()
                 else:
                     # choose sprite for angle
                     self.object = self.visible_sprite()
@@ -137,7 +137,7 @@ class Sprite:
                 self.dead_animation_count = 0
         return self.dead_sprite
 
-    def npc_in_action(self):
+    def enemy_in_action(self):
         sprite_object = self.obj_action[0]
         if self.animation_count < self.animation_speed:
             self.animation_count += 1
@@ -160,14 +160,14 @@ class SpriteSet:
     def __init__(self):
         self.sprite_params = {
             'sprite_barrel': {
-                'sprite': pygame.image.load('sprites/barrel/base/0.png').convert_alpha(),
+                'sprite': pygame.image.load('./game/sprites/barrel/base/0.png').convert_alpha(),
                 'viewing_angles': None,
                 'shift': 1.8,
                 'scale': (0.4, 0.4),
                 'side': 30,
                 'animation': deque(
-                    [pygame.image.load(f'sprites/barrel/anim/{i}.png').convert_alpha() for i in range(12)]),
-                'death_animation': deque([pygame.image.load(f'sprites/barrel/death/{i}.png')
+                    [pygame.image.load(f'./game/sprites/barrel/anim/{i}.png').convert_alpha() for i in range(12)]),
+                'death_animation': deque([pygame.image.load(f'./game/sprites/barrel/death/{i}.png')
                                           .convert_alpha() for i in range(4)]),
                 'is_dead': None,
                 'dead_shift': 2.6,
@@ -178,12 +178,12 @@ class SpriteSet:
                 'obj_action': []
             },
             'sprite_pin': {
-                'sprite': pygame.image.load('sprites/pin/base/0.png').convert_alpha(),
+                'sprite': pygame.image.load('./game/sprites/pin/base/0.png').convert_alpha(),
                 'viewing_angles': None,
                 'shift': 0.6,
                 'scale': (0.6, 0.6),
                 'side': 30,
-                'animation': deque([pygame.image.load(f'sprites/pin/anim/{i}.png').convert_alpha() for i in range(8)]),
+                'animation': deque([pygame.image.load(f'./game/sprites/pin/anim/{i}.png').convert_alpha() for i in range(8)]),
                 'death_animation': [],
                 'is_dead': 'immortal',
                 'dead_shift': None,
@@ -194,13 +194,13 @@ class SpriteSet:
                 'obj_action': []
             },
             'sprite_flame': {
-                'sprite': pygame.image.load('sprites/flame/base/0.png').convert_alpha(),
+                'sprite': pygame.image.load('./game/sprites/flame/base/0.png').convert_alpha(),
                 'viewing_angles': None,
                 'shift': 0.7,
                 'scale': (0.6, 0.6),
                 'side': 30,
                 'animation': deque(
-                    [pygame.image.load(f'sprites/flame/anim/{i}.png').convert_alpha() for i in range(16)]),
+                    [pygame.image.load(f'./game/sprites/flame/anim/{i}.png').convert_alpha() for i in range(16)]),
                 'death_animation': [],
                 'is_dead': 'immortal',
                 'dead_shift': 1.8,
@@ -210,80 +210,80 @@ class SpriteSet:
                 'flag': 'decor',
                 'obj_action': []
             },
-            'npc_devil0': {
-                'sprite': [pygame.image.load(f'sprites/npc/devil0/base/{i}.png').convert_alpha() for i in range(8)],
+            'enemy_devil0': {
+                'sprite': [pygame.image.load(f'./game/sprites/enemy/devil0/base/{i}.png').convert_alpha() for i in range(8)],
                 'viewing_angles': True,
                 'shift': 0.0,
                 'scale': (1.1, 1.1),
                 'side': 50,
                 'animation': [],
-                'death_animation': deque([pygame.image.load(f'sprites/npc/devil0/death/{i}.png')
+                'death_animation': deque([pygame.image.load(f'./game/sprites/enemy/devil0/death/{i}.png')
                                            .convert_alpha() for i in range(6)]),
                 'is_dead': None,
                 'dead_shift': 0.6,
                 'animation_dist': None,
                 'animation_speed': 10,
                 'blocked': True,
-                'flag': 'npc',
+                'flag': 'enemy',
                 'obj_action': deque(
-                    [pygame.image.load(f'sprites/npc/devil0/anim/{i}.png').convert_alpha() for i in range(9)]),
+                    [pygame.image.load(f'./game/sprites/enemy/devil0/anim/{i}.png').convert_alpha() for i in range(9)]),
             },
-            'npc_devil1': {
-                'sprite': [pygame.image.load(f'sprites/npc/devil1/base/{i}.png').convert_alpha() for i in range(8)],
+            'enemy_devil1': {
+                'sprite': [pygame.image.load(f'./game/sprites/enemy/devil1/base/{i}.png').convert_alpha() for i in range(8)],
                 'viewing_angles': True,
                 'shift': 0,
                 'scale': (0.9, 1.0),
                 'side': 30,
                 'animation': [],
-                'death_animation': deque([pygame.image.load(f'sprites/npc/devil1/death/{i}.png')
+                'death_animation': deque([pygame.image.load(f'./game/sprites/enemy/devil1/death/{i}.png')
                                            .convert_alpha() for i in range(11)]),
                 'is_dead': None,
                 'dead_shift': 0.5,
                 'animation_dist': None,
                 'animation_speed': 6,
                 'blocked': True,  # <-------------------
-                'flag': 'npc',
-                'obj_action': deque([pygame.image.load(f'sprites/npc/devil1/action/{i}.png')
+                'flag': 'enemy',
+                'obj_action': deque([pygame.image.load(f'./game/sprites/enemy/devil1/action/{i}.png')
                                     .convert_alpha() for i in range(6)])
             },
-            'npc_soldier0': {
-                'sprite': [pygame.image.load(f'sprites/npc/soldier0/base/{i}.png').convert_alpha() for i in range(8)],
+            'enemy_soldier0': {
+                'sprite': [pygame.image.load(f'./game/sprites/enemy/soldier0/base/{i}.png').convert_alpha() for i in range(8)],
                 'viewing_angles': True,
                 'shift': 0.8,
                 'scale': (0.4, 0.6),
                 'side': 30,
                 'animation': [],
-                'death_animation': deque([pygame.image.load(f'sprites/npc/soldier0/death/{i}.png')
+                'death_animation': deque([pygame.image.load(f'./game/sprites/enemy/soldier0/death/{i}.png')
                                            .convert_alpha() for i in range(10)]),
                 'is_dead': None,
                 'dead_shift': 1.7,
                 'animation_dist': None,
                 'animation_speed': 6,
                 'blocked': True,
-                'flag': 'npc',
-                'obj_action': deque([pygame.image.load(f'sprites/npc/soldier0/action/{i}.png')
+                'flag': 'enemy',
+                'obj_action': deque([pygame.image.load(f'./game/sprites/enemy/soldier0/action/{i}.png')
                                            .convert_alpha() for i in range(4)])
             },
-            'npc_soldier1': {
-                'sprite': [pygame.image.load(f'sprites/npc/soldier1/base/{i}.png').convert_alpha() for i in range(8)],
+            'enemy_soldier1': {
+                'sprite': [pygame.image.load(f'./game/sprites/enemy/soldier1/base/{i}.png').convert_alpha() for i in range(8)],
                 'viewing_angles': True,
                 'shift': 0.8,
                 'scale': (0.4, 0.6),
                 'side': 30,
                 'animation': [],
-                'death_animation': deque([pygame.image.load(f'sprites/npc/soldier1/death/{i}.png')
+                'death_animation': deque([pygame.image.load(f'./game/sprites/enemy/soldier1/death/{i}.png')
                                            .convert_alpha() for i in range(11)]),
                 'is_dead': None,
                 'dead_shift': 1.7,
                 'animation_dist': None,
                 'animation_speed': 6,
                 'blocked': True,  # <-------------------
-                'flag': 'npc',
-                'obj_action': deque([pygame.image.load(f'sprites/npc/soldier1/action/{i}.png')
+                'flag': 'enemy',
+                'obj_action': deque([pygame.image.load(f'./game/sprites/enemy/soldier1/action/{i}.png')
                                     .convert_alpha() for i in range(4)])
             },
             'sprite_door_v': {
-                'sprite': [pygame.image.load(f'sprites/doors/door_v/{i}.png').convert_alpha() for i in range(16)],
+                'sprite': [pygame.image.load(f'./game/sprites/doors/door_v/{i}.png').convert_alpha() for i in range(16)],
                 'viewing_angles': True,
                 'shift': 0.1,
                 'scale': (2.6, 1.2),
@@ -299,7 +299,7 @@ class SpriteSet:
                 'obj_action': []
             },
             'sprite_door_h': {
-                'sprite': [pygame.image.load(f'sprites/doors/door_h/{i}.png').convert_alpha() for i in range(16)],
+                'sprite': [pygame.image.load(f'./game/sprites/doors/door_h/{i}.png').convert_alpha() for i in range(16)],
                 'viewing_angles': True,
                 'shift': 0.1,
                 'scale': (2.6, 1.2),
@@ -345,45 +345,45 @@ class SpriteSet:
             Sprite(self.sprite_params['sprite_pin'], (7.01, 13.47)),
             Sprite(self.sprite_params['sprite_flame'], (8.6, 5.6)),
 
-            Sprite(self.sprite_params['npc_soldier0'], (2.5, 1.5)),
-            Sprite(self.sprite_params['npc_soldier0'], (5.51, 1.5)),
-            Sprite(self.sprite_params['npc_soldier0'], (6.61, 2.92)),
-            Sprite(self.sprite_params['npc_soldier0'], (7.68, 1.47)),
-            Sprite(self.sprite_params['npc_soldier0'], (8.75, 3.65)),
-            Sprite(self.sprite_params['npc_soldier0'], (1.27, 11.5)),
-            Sprite(self.sprite_params['npc_soldier0'], (1.26, 8.29)),
-            # Sprite(self.sprite_params['npc_soldier0'], (2.56, 7.38)), # <------------
-            Sprite(self.sprite_params['npc_soldier1'], (10.5, 1.1)),
-            Sprite(self.sprite_params['npc_soldier1'], (3.66, 5.27)),
-            Sprite(self.sprite_params['npc_soldier1'], (4.38, 6.56)),
-            Sprite(self.sprite_params['npc_soldier1'], (4.33, 9.01)),
-            Sprite(self.sprite_params['npc_soldier1'], (4.46, 10.35)),
-            Sprite(self.sprite_params['npc_soldier1'], (13.16, 2.16)),
-            Sprite(self.sprite_params['npc_soldier1'], (12.09, 1.28)),
-            Sprite(self.sprite_params['npc_devil0'], (3.9, 6.41)),
-            Sprite(self.sprite_params['npc_devil0'], (14.36, 3.31)),
-            Sprite(self.sprite_params['npc_devil0'], (2.14, 13.81)),
-            Sprite(self.sprite_params['npc_devil1'], (10.73, 3.90)),
-            Sprite(self.sprite_params['npc_devil1'], (10.6, 5.52)),
-            Sprite(self.sprite_params['npc_devil1'], (11.75, 5.75)),
-            Sprite(self.sprite_params['npc_devil1'], (14.87, 14.27)),
-            Sprite(self.sprite_params['npc_devil0'], (15.85, 14.74)),
-            Sprite(self.sprite_params['npc_soldier1'], (17.02, 14.26)),
-            Sprite(self.sprite_params['npc_devil0'], (18.20, 14.73)),
-            Sprite(self.sprite_params['npc_devil1'], (19.77, 14.26)),
+            Sprite(self.sprite_params['enemy_soldier0'], (2.5, 1.5)),
+            Sprite(self.sprite_params['enemy_soldier0'], (5.51, 1.5)),
+            Sprite(self.sprite_params['enemy_soldier0'], (6.61, 2.92)),
+            Sprite(self.sprite_params['enemy_soldier0'], (7.68, 1.47)),
+            Sprite(self.sprite_params['enemy_soldier0'], (8.75, 3.65)),
+            Sprite(self.sprite_params['enemy_soldier0'], (1.27, 11.5)),
+            Sprite(self.sprite_params['enemy_soldier0'], (1.26, 8.29)),
+            # Sprite(self.sprite_params['enemy_soldier0'], (2.56, 7.38)), # <------------
+            Sprite(self.sprite_params['enemy_soldier1'], (10.5, 1.1)),
+            Sprite(self.sprite_params['enemy_soldier1'], (3.66, 5.27)),
+            Sprite(self.sprite_params['enemy_soldier1'], (4.38, 6.56)),
+            Sprite(self.sprite_params['enemy_soldier1'], (4.33, 9.01)),
+            Sprite(self.sprite_params['enemy_soldier1'], (4.46, 10.35)),
+            Sprite(self.sprite_params['enemy_soldier1'], (13.16, 2.16)),
+            Sprite(self.sprite_params['enemy_soldier1'], (12.09, 1.28)),
+            Sprite(self.sprite_params['enemy_devil0'], (3.9, 6.41)),
+            Sprite(self.sprite_params['enemy_devil0'], (14.36, 3.31)),
+            Sprite(self.sprite_params['enemy_devil0'], (2.14, 13.81)),
+            Sprite(self.sprite_params['enemy_devil1'], (10.73, 3.90)),
+            Sprite(self.sprite_params['enemy_devil1'], (10.6, 5.52)),
+            Sprite(self.sprite_params['enemy_devil1'], (11.75, 5.75)),
+            Sprite(self.sprite_params['enemy_devil1'], (14.87, 14.27)),
+            Sprite(self.sprite_params['enemy_devil0'], (15.85, 14.74)),
+            Sprite(self.sprite_params['enemy_soldier1'], (17.02, 14.26)),
+            Sprite(self.sprite_params['enemy_devil0'], (18.20, 14.73)),
+            Sprite(self.sprite_params['enemy_devil1'], (19.77, 14.26)),
 
-            Sprite(self.sprite_params['npc_soldier0'], (8.10, 11.93)),
-            Sprite(self.sprite_params['npc_soldier0'], (12.14, 10.34)),
-            Sprite(self.sprite_params['npc_soldier1'], (15.27, 6.56)),
-            Sprite(self.sprite_params['npc_soldier1'], (14.31, 11.56)),
-            Sprite(self.sprite_params['npc_soldier1'], (17.62, 9.66)),
-            Sprite(self.sprite_params['npc_devil0'], (22.53, 9.00)),
-            Sprite(self.sprite_params['npc_devil1'], (20.12, 3.55)),
-            Sprite(self.sprite_params['npc_soldier1'], (18.29, 12.66)),
-            Sprite(self.sprite_params['npc_soldier1'], (18.53, 8.33)),
-            Sprite(self.sprite_params['npc_soldier1'], (20.42, 7.53)),
-            Sprite(self.sprite_params['npc_soldier1'], (22.3, 2.89)),
-            Sprite(self.sprite_params['npc_soldier1'], (22.76, 10.21)),
+            Sprite(self.sprite_params['enemy_soldier0'], (8.10, 11.93)),
+            Sprite(self.sprite_params['enemy_soldier0'], (12.14, 10.34)),
+            Sprite(self.sprite_params['enemy_soldier1'], (15.27, 6.56)),
+            Sprite(self.sprite_params['enemy_soldier1'], (14.31, 11.56)),
+            Sprite(self.sprite_params['enemy_soldier1'], (17.62, 9.66)),
+            Sprite(self.sprite_params['enemy_devil0'], (22.53, 9.00)),
+            Sprite(self.sprite_params['enemy_devil1'], (20.12, 3.55)),
+            Sprite(self.sprite_params['enemy_soldier1'], (18.29, 12.66)),
+            Sprite(self.sprite_params['enemy_soldier1'], (18.53, 8.33)),
+            Sprite(self.sprite_params['enemy_soldier1'], (20.42, 7.53)),
+            Sprite(self.sprite_params['enemy_soldier1'], (22.3, 2.89)),
+            Sprite(self.sprite_params['enemy_soldier1'], (22.76, 10.21)),
 
             Sprite(self.sprite_params['sprite_door_v'], (9.5, 4.5)),
             Sprite(self.sprite_params['sprite_door_v'], (9.5, 1.5)),

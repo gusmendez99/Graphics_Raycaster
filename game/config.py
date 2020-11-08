@@ -1,8 +1,8 @@
 import math
 
 # Screen sizing
-WIDTH = 1080
-HEIGHT = 720
+WIDTH = 1200
+HEIGHT = 800
 TILE = 100
 
 # Other sizing configuration
@@ -13,7 +13,7 @@ DOUBLE_HEIGHT = 2 * HEIGHT
 
 # FPS Counter
 FPS = 60
-FPS_POS = (WIDTH - 60, 5)
+FPS_POSITION = (5, 5)
 
 # Colors
 WHITE = (255, 255, 255)
@@ -29,12 +29,17 @@ SANDY = (242, 162, 94)
 DARKBROWN = (100, 64, 26)
 DARKORANGE = (252, 138, 0)
 
+
+#################################
+#             GAME              #
+#################################
+
 # Player
 PLAYER_POSITION = (HALF_WIDTH // 4, HALF_HEIGHT - 50)
 PLAYER_ANGLE = 0
 PLAYER_SPEED = 5
 PLAYER_ROTATION_SPEED = 0.02
-PLAYER_SENSITIVITY = 0.0038
+player_sensitivity = 0.004
 
 # Minimap & Map
 MAP_FILENAME = "./game/level.txt"
@@ -42,7 +47,7 @@ MINIMAP_SCALE = 5
 MAP_RESOLUTION = (WIDTH // MINIMAP_SCALE, HEIGHT // MINIMAP_SCALE)
 MAP_SCALE = 2 * MINIMAP_SCALE
 MAP_TILE = TILE // MAP_SCALE
-MAP_POSITION = (0, HEIGHT - HEIGHT // MINIMAP_SCALE)
+MAP_POSITION = (WIDTH - WIDTH // MINIMAP_SCALE, HEIGHT - HEIGHT // MINIMAP_SCALE)
 
 # Raycaster
 FOV = math.pi / 3

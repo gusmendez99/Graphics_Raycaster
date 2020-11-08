@@ -9,9 +9,9 @@ def mapping(a, b):
     return int((a // TILE) * TILE), int((b // TILE) * TILE)
 
 @njit(fastmath=True, cache=True)
-def ray_casting(player_pos, player_angle, world_map):
+def ray_casting(player_position, player_angle, world_map):
     casted_walls = []
-    ox, oy = player_pos
+    ox, oy = player_position
     xm, ym = mapping(ox, oy)
     current_angle = player_angle - HALF_FOV
     texture_v, texture_h = 1, 1
@@ -53,7 +53,6 @@ def ray_casting(player_pos, player_angle, world_map):
         current_angle += DELTA_ANGLE
         
     return casted_walls
-
 
 def ray_casting_walls(player, textures):
     walls = []

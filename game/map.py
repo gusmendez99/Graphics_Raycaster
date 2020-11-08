@@ -21,7 +21,7 @@ for y, row in enumerate(MATRIX_MAP):
     for x, char in enumerate(row):
         if char:
             MINIMAP.add((x * MAP_TILE, y * MAP_TILE))
-            WORLD_WALLS.append(pygame.Rect(y * TILE, y * TILE, TILE, TILE))
+            WORLD_WALLS.append(pygame.Rect(x * TILE, y * TILE, TILE, TILE))
             if char == 1:
                 WORLD_MAP[(x * TILE, y * TILE)] = 1
             elif char == 2:
