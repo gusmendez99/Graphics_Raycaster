@@ -3,6 +3,7 @@ from game.config import *
 import pygame
 import math
 
+
 class Player:
     def __init__(self, sprites):
         self.x, self.y = PLAYER_POSITION
@@ -21,8 +22,11 @@ class Player:
 
     @property
     def collision_list(self):
-        return WORLD_WALLS + [pygame.Rect(*obj.position, obj.side, obj.side) for obj
-                                  in self.sprites.list_of_objects if obj.blocked]
+        return WORLD_WALLS + [
+            pygame.Rect(*obj.position, obj.side, obj.side)
+            for obj in self.sprites.list_of_objects
+            if obj.blocked
+        ]
 
     def movement(self):
         self.keys_control()
@@ -86,7 +90,7 @@ class Player:
                 else:
                     delta_y += hit_rect.bottom - next_rect.top
 
-            if abs(delta_x - delta_y) < 20: # <-------------
+            if abs(delta_x - delta_y) < 20:  # <-------------
                 dx, dy = 0, 0
             elif delta_x > delta_y:
                 dy = 0
