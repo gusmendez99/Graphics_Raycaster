@@ -38,4 +38,4 @@ Finally, run `python3 main.py`.
 #### Gameplay
 ![original](https://github.com/gusmendez99/Graphics_Raycaster/raw/project/images/gameplay.gif?raw=true)
 
-Sprites, Textures, and Enemy/NPC animations code retrived from this [tutorial](https://youtu.be/MgTHkqMjVa4)
+Doom sprites, textures, and enemy/npc animations code retrived from this [tutorial](https://youtu.be/MgTHkqMjVa4)
