@@ -7,7 +7,7 @@ class Player:
     def __init__(self, sprites):
         self.x, self.y = PLAYER_POSITION
         self.angle = PLAYER_ANGLE
-        self.sensitivity = player_sensitivity
+        self.sensitivity = PLAYER_SENSITIVITY
         self.sprites = sprites
         # collision params
         self.side = 50

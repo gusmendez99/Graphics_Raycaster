@@ -14,15 +14,18 @@ class UI:
         self.clock = clock
         self.font = pygame.font.SysFont('Arial', 36, bold=True)
         self.font_win = pygame.font.Font('./game/font/main-font.ttf', 144)
-        self.textures = {1: pygame.image.load('./game/textures/wall6.png').convert(),
-                         2: pygame.image.load('./game/textures/wall5.png').convert(),
+        self.textures = {1: pygame.image.load('./game/textures/wall1.png').convert(),
+                         2: pygame.image.load('./game/textures/wall2.png').convert(),
                          3: pygame.image.load('./game/textures/wall3.png').convert(),
-                         4: pygame.image.load('./game/textures/wall7.png').convert(),
-                         'S': pygame.image.load('./game/textures/sky0.png').convert(),
+                         4: pygame.image.load('./game/textures/wall4.png').convert(),
+                         'S': pygame.image.load('./game/textures/sky.png').convert(),
                          }
+
+        # hud
+        self.hud = pygame.image.load('./game/textures/hud.png').convert_alpha()
         # menu
         self.menu_trigger = True
-        self.menu_picture = pygame.image.load('./game/textures/bg.jpg').convert()
+        self.menu_picture = pygame.image.load('./game/textures/background.jpg').convert()
         # weapon parameters
         self.weapon_base_sprite = pygame.image.load('./game/sprites/weapons/shotgun/base/0.png').convert_alpha()
         self.weapon_shot_animation = deque([pygame.image.load(f'./game/sprites/weapons/shotgun/shot/{i}.png')
@@ -105,6 +108,9 @@ class UI:
                 self.shot_animation_trigger = True
         else:
             self.screen.blit(self.weapon_base_sprite, self.weapon_pos)
+        
+        # hud
+        self.screen.blit(self.hud, HUD_POSITION) 
 
     def bullet_sfx(self):
         if self.sfx_length_count < self.sfx_length:
